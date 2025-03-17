@@ -4,19 +4,25 @@
 <br><br>
 
 ## 👥 팀 구성원
-
 <table width="50%" align="center">
     <tr>
         <td align="center"><b>멘토</b></td>
-<!--         <td align="center"><b>멘티</b></td>
         <td align="center"><b>멘티</b></td>
-        <td align="center"><b>멘티</b></td> -->
+        <td align="center"><b>멘티</b></td>
+        <td align="center"><b>멘티</b></td>
     </tr>
     <tr>
         <td align="center"><img src="https://avatars.githubusercontent.com/u/156324288?v=4"></td>
+        <td align="center"><img src="https://avatars.githubusercontent.com/u/165155187?v=4"></td>
+        <td align="center"><img src="https://avatars.githubusercontent.com/u/127778690?v=4"></td>
+        <td align="center"><img src="https://avatars.githubusercontent.com/u/166373147?v=4"></td>
     </tr>
     <tr>
         <td align="center"><b><a href="https://github.com/frombunny">임혜정</a></b></td>
+        <td align="center"><b><a href="https://github.com/univ217">김은지</a></b></td>
+        <td align="center"><b><a href="https://github.com/LgE02">이가은</a></b></td>
+        <td align="center"><b><a href="https://github.com/ThreeeJ">정종진</a></b></td>
+        
     </tr>
 </table>
 
