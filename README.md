@@ -21,8 +21,7 @@
         <td align="center"><b><a href="https://github.com/frombunny">임혜정</a></b></td>
         <td align="center"><b><a href="https://github.com/univ217">김은지</a></b></td>
         <td align="center"><b><a href="https://github.com/LgE02">이가은</a></b></td>
-        <td align="center"><b><a href="https://github.com/ThreeeJ">정종진</a></b></td>
-        
+        <td align="center"><b><a href="https://github.com/ThreeeJ">정종진</a></b></td> 
     </tr>
 </table>
 
