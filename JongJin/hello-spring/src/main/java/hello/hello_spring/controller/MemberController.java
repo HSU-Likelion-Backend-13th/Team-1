@@ -10,7 +10,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @Autowired
-    public MemberController(MemberService memberService) {
+    public MemberController(MemberService memberService) { // DI : 생성자 주입
         this.memberService = memberService;
     }
 }
