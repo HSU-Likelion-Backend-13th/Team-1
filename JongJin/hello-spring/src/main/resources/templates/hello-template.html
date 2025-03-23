@@ -1,0 +1,11 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<p th:text="'hello ' + ${name}">hello! empty</p>
+<!--
+hello! empty : 서버 없이 html 만들어서 볼 때
+
+이것이 템플릿엔진으로 동작하게 되면
+hello! empty -> 'hello ' + ${name}로 치환된다.
+-->
+</body>
+</html>
