@@ -8,7 +8,7 @@ public class MemoryMemberRepository implements MemberRepository {
 
     private static Map<Long, Member> store = new HashMap<>();
     private static long sequence = 0L; //0,1,2 키값을 생성해주는 것
-    
+
     @Override
     public Member save(Member member) {
         member.setId(++sequence);
