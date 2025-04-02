@@ -18,7 +18,7 @@ public class OderApp {
         memberService.join(member);
 
         Order order = orderService.createOrder(memberId, "Book", 10000);
-        System.out.println("order : " + order);
+        System.out.println("order : " + order); //order.String()을 하지 않아도 괜찮은지?
         System.out.println("최종가격 : " + order.calculatePrice());
     }
 }
