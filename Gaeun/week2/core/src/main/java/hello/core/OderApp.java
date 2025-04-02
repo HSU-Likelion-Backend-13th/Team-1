@@ -10,14 +10,18 @@ import hello.core.order.OrderServiceImpl;
 
 public class OderApp {
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
-        OrderService orderService = new OrderServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
+
+//        MemberService memberService = new MemberServiceImpl();
+//        OrderService orderService = new OrderServiceImpl();
 
         Long memberId = 1L;
-        Member member = new Member(memberId, "gaeun", Grade.VIP);
+        Member member = new Member(memberId, "gaeun", Grade.BASIC);
         memberService.join(member);
 
-        Order order = orderService.createOrder(memberId, "Book", 10000);
+        Order order = orderService.createOrder(memberId, "Bok", 20000);
         System.out.println("order : " + order); //order.String()을 하지 않아도 괜찮은지?
         System.out.println("최종가격 : " + order.calculatePrice());
     }
