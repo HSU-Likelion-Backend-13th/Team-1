@@ -42,7 +42,7 @@ public class JdbcTemplateMemberRepository implements MemberRepository {
     @Override
     public Optional<Member> findById(Long id) {
         List<Member> result = jdbcTemplate.query("select * from member where id = ?", memberRowMapper(), id);
-        //결과값을 Mapper로 받기
+        //RowMapper으로 저장한 객체에서 원하는 값 검색
         return result.stream().findAny();
         //리스트를 Optional로 감싸서 반환
     }
@@ -60,6 +60,7 @@ public class JdbcTemplateMemberRepository implements MemberRepository {
     }
 
     private RowMapper<Member> memberRowMapper() {
+        //각 행을 Member객체로 변환
         return (rs, rowNum) -> {
             Member member = new Member();
             member.setId(rs.getLong("id"));
