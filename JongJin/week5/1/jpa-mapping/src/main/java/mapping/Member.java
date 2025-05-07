@@ -17,9 +17,9 @@ public class Member {
     //@Column(name = "TEAM_ID")
     //private Long teamId;
 
-    @ManyToOne
-    // Member DB에 있는 TEAM_ID라는 외래키를 team 필드와 매핑, 연결
-    @JoinColumn(name = "TEAM_ID") // 연관관계의 주인 -> 진짜 매핑
+    // 기본값 : fetch = FetchType.EAGER
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TEAM_ID")
     private Team team;
 
     public Long getId() {

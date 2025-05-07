@@ -16,32 +16,30 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Team team = new Team();
-            team.setName("Team 1");
-            em.persist(team);
+////            Member member = em.find(Member.class, 1);
+////            System.out.println("member name : " + member.getUsername());
+//            Team team = new Team();
+//            team.setName("Team 4");
+//            em.persist(team);
+//
+//            Member member = new Member();
+//            member.setUsername("부기톤");
+//            member.setTeam(team);
+//            em.persist(member);
+//
+//            em.flush();
+//            em.clear(); // 1차 캐시 초기화 -> 프록시 테스트 가능
+//
+//            Member findMember = em.find(Member.class, member.getId());
+//
+//            // Team은 아직 프록시 상태
+//            System.out.println("team 클래스 : " + findMember.getTeam().getClass());
+//
+//            // 쿼리가 나갈 것
+//            System.out.println("team 이름 : " + findMember.getTeam().getName());
 
-            Member member = new Member();
-            member.setUsername("Member1");
-            member.setTeam(team);
-            em.persist(member);
-
-            //System.out.println(member.getTeam().getName()); // 객체 기반 연결 그래프 탐색 가능!
-
-            Member member2 = new Member();
-            member2.setUsername("Member2");
-            member2.setTeam(team);
-            em.persist(member2);
-
-            em.flush();
-            em.clear();
-
-            Member findMember = em.find(Member.class, member.getId());
-
-            List<Member> members = findMember.getTeam().getMembers();
-            for (Member m : members) {
-                System.out.println("멤버 : " + m.getUsername());
-            }
-
+            // N+1 문제 예시
+            List<Member> members = em.createQuery("select m from Member m", Member.class).getResultList();
 
             tx.commit();
         }catch (Exception e) {
