@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 public class JpaMain {
 
@@ -16,28 +16,50 @@ public class JpaMain {
         tx.begin();
 
         try {
-            //멤버 생성
-            Member member = new Member("은지", "서울", "한성대", "공학관 코딩라운지");
-            em.persist(member);
+//            Team team = new Team();
+//            team.setName("Team 1");
+//            em.persist(team);
+//
+//            Member member = new Member();
+//            member.setUsername("Member1");
+//            member.setTeam(team);
+//            em.persist(member);
+//
+//            Member member2 = new Member();
+//            member2.setUsername("Member2");
+//            member2.setTeam(team);
+//            em.persist(member2);
+//
+//            em.flush();
+//            em.clear();
+//
+//            Member findMember = em.find(Member.class, member.getId());
+//
+//            List<Member> members = findMember.getTeam().getMembers();
+//            for(Member m : members) { //이터레이터
+//                System.out.println("멤버: "+m.getUsername());
+//            }
+//            Team team = new Team();
+//            team.setName("Team 2");
+//            em.persist(team);
+//
+//            Member member = new Member();
+//            member.setName("Mds");
+//            member.setTeam(team);
+//            em.persist(member);
+//
+//            em.flush();
+//            em.clear(); //1차캐시 초기화 -> 프록시 테스ㅡㅌ 가능
+//
+//            Member findMember = em.find(Member.class, member.getId());
+//
+//            // Team은 아직 프록시 상태
+//            System.out.println("team 클래스 : " +findMember.getTeam().getClass());
+//
+//            // 여기서 쿼리 나감
+//            System.out.println("team dlfma : " +findMember.getTeam().getName());
 
-            //아이템 생성
-            Item item = new Item("마라탕",  8000, 5);
-            em.persist(item);
-
-            //OrderItem
-            OrderItem orderItem = new OrderItem();
-            orderItem.setCount(3);
-            orderItem.setOrderPrice(3*item.getPrice());
-            orderItem.setItem(item);
-            em.persist(orderItem);
-
-            //Order
-            Order order = new Order();
-            order.setMember(member);
-            order.setOrderDate(LocalDateTime.now());
-            order.setStatus(OrderStatus.SUCCESS);
-            order.addOrderItem(orderItem);
-            em.persist(order);
+            List<Member> members = em.createQuery("select m from Member m", Member.class).getResultList();
 
 
             tx.commit();
