@@ -23,7 +23,7 @@ public class Member {
     //객체지향적 코드
     //멤버객체의 Team 참조와 멤버테이블의 Team_id 외래키를 매핑
     //연관관계 주인
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TEAM_ID") //연관관계 주인 -> 진짜 매핑
     private Team team;
 

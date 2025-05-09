@@ -32,6 +32,12 @@ public class Order {
     //왜 해당 클래스에서 추가하는 것일까?
     //연관관계 주인이 orderItem의 필드 인데 orderItem에서 추가해도 괜찮지 않을까?
     //@OneToMany는 읽기 전용이 아니였나????
+    //-> 읽는 것은 DB만!!!!
+    //DB에 관계 변화가 저장되는 것과 객체에 그 영향이 반영되는 것은 다른 것!
+    //즉, 연관관게 주인이 관계 관련 DB 변화를 준다면, 그에 해댱되는 영향을 객체에 따로 넣어주어야한다.
+
+    //ex) orderItem.set(order); 을 하면 DB에는 해당 연관관계가 저장된 상태
+    //그러나 객체에서는 해당 관계가 설정되지 않았기에 컬렉션 orderItems에도 따로 추가하는 로직이 필요하다.
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);
