@@ -7,9 +7,15 @@ import com.likelion.demo.domain.post.exception.PostNotFoundException;
 import com.likelion.demo.domain.post.repository.PostRepository;
 import com.likelion.demo.domain.post.web.dto.*;
 import com.likelion.demo.domain.post.web.dto.PostSummaryRes.PostSummary;
+import com.likelion.demo.global.response.SuccessResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,4 +119,25 @@ public class PostServiceImpl implements PostService {
                 foundPost.getUpdatedAt()
         );
     }
+
+    // 게시글 삭제
+    @Transactional
+    @Override
+    public void deleteOne(Long postId, DeletePostReq deletePostReq) {
+        // 1. 게시글 존재 확인
+        // 404 - 게시글 존재하지 않음
+        Post post = postRepository.findById(postId)
+                .orElseThrow(PostNotFoundException::new);
+
+        // 2. 비밀번호 검증
+        if (!post.getPassword().equals(deletePostReq.getPassword())) {
+            // 403 - 비밀번호 불일치
+            throw new InvalidPasswordException();
+        }
+
+        // 3. 삭제
+        postRepository.delete(post);
+    }
+
+
 }

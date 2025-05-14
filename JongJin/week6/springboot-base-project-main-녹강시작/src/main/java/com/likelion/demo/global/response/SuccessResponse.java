@@ -31,6 +31,7 @@ public class SuccessResponse<T> extends BaseResponse{
         return new SuccessResponse<>(data, GlobalSuccessCode.SUCCESS_CREATED);
     }
 
+    // 200 OK 응답 (data 가 null)
     public static <T> SuccessResponse<T> empty() {
         return new SuccessResponse<>(null, GlobalSuccessCode.SUCCESS_OK);
     }
