@@ -5,6 +5,7 @@ import com.likelion.demo.domain.post.service.PostService;
 import com.likelion.demo.domain.post.web.dto.CreatePostReq;
 import com.likelion.demo.domain.post.web.dto.CreatePostRes;
 import com.likelion.demo.domain.post.web.dto.PostDetailRes;
+import com.likelion.demo.domain.post.web.dto.PostSummaryRes;
 import com.likelion.demo.global.response.SuccessResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,18 @@ public class PostController {
     }
 
     //게시글 전체 조회
+    @GetMapping
+    public ResponseEntity<SuccessResponse<?>> getAllPosts() {
+        // 서비스 로직
+        PostSummaryRes postSummaryRes = postService.getAll();
+        //-> 리스트 형식으로 반환
+
+        //반환
+        //반환 엔티티에 반환 성공시 성공 상태, 바디에는 넘길 데이터를 작성
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(SuccessResponse.ok(postSummaryRes));
+    }
     //게시글 수정
     //게시글 삭제
 }

@@ -4,11 +4,13 @@ import com.likelion.demo.domain.post.entity.Post;
 import com.likelion.demo.domain.post.entity.PostState;
 import com.likelion.demo.domain.post.exception.PostNotFoundException;
 import com.likelion.demo.domain.post.repository.PostRepository;
-import com.likelion.demo.domain.post.web.dto.CreatePostReq;
-import com.likelion.demo.domain.post.web.dto.CreatePostRes;
-import com.likelion.demo.domain.post.web.dto.PostDetailRes;
+import com.likelion.demo.domain.post.web.dto.*;
+import com.likelion.demo.domain.post.web.dto.PostSummaryRes.PostSummary;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -51,5 +53,29 @@ public class PostServiceImpl implements PostService {
                 post.getCreatedAt(),
                 post.getUpdatedAt()
         );
+    }
+
+    //리스트 형식으로 반환
+    @Override
+    public PostSummaryRes getAll() {
+        //1. DB에서 모든 Post 조회(postRespository)
+        List<Post> posts = postRepository.findAll();
+        //만일 저장된 게시글이 없을떄 빈 리스트 반환
+        //빈 리스트를 반환때도 처리 로직을 작성 해야하는지? 아니면 프론트 파트에서 따로 처리 로직을 만드는걸까?
+
+        //2. posts -> PostSummaryRes로 변환
+        List<PostSummary> postSummaryList = new ArrayList<>();
+
+        for(Post post : posts) {
+            PostSummary postSummary = new PostSummary(
+                    post.getId(),
+                    post.getTitle(),
+                    post.getUsername(),
+                    post.getCreatedAt()
+            );
+            postSummaryList.add(postSummary);
+        }
+        //3. 반환
+        return new PostSummaryRes(postSummaryList);
     }
 }

@@ -27,4 +27,10 @@ public class Post extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private PostState state;
 
+    //수정 로직 (제목, 내용)
+    public void modify(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
 }

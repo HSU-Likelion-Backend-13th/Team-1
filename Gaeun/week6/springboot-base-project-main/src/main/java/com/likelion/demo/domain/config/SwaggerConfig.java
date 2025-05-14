@@ -1,4 +1,4 @@
-package com.likelion.demo.domain.comment;
+package com.likelion.demo.domain.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
