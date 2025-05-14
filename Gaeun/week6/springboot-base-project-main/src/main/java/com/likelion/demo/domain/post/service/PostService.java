@@ -9,6 +9,8 @@ public interface PostService {
     PostDetailRes getById(Long postId);
     //게시글 전체 조회
     PostSummaryRes getAll();
-
+    //게시글 수정
     PostDetailRes modfiyOne(Long postId, ModifyPostReq modifyPostReq);
+    //게시글 삭제
+    void deleteOne(Long postId, DeletePostReq deletePostReq);
 }

@@ -9,7 +9,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @Builder
-@AllArgsConstructor //모든 생성자 생성
+@AllArgsConstructor //클래스의 모든 필드 값을 파라미터(인자)로 받는 생성자를 자동으로 생성
 public class Post extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

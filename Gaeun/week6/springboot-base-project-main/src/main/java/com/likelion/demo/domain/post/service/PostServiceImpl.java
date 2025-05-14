@@ -9,12 +9,14 @@ import com.likelion.demo.domain.post.web.dto.*;
 import com.likelion.demo.domain.post.web.dto.PostSummaryRes.PostSummary;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
 
@@ -112,5 +114,25 @@ public class PostServiceImpl implements PostService {
                 foundpost.getCreatedAt(),
                 foundpost.getUpdatedAt()
         );
+    }
+
+    //게시글 삭제
+    //@Transactional
+    @Override
+    public void deleteOne(Long postId, DeletePostReq deletePostReq) {
+        //1.게시글 존재 확인
+        //404 - 게시글 존재하지 않음
+        Post post = postRepository.findById(postId)
+                .orElseThrow(PostNotFoundException::new);
+
+        //2.비밀번호 검증
+        //403 - 비밀번호 불일치
+        if(!post.getPassword().equals(deletePostReq.getPassword())) {
+            throw new InvalidPasswordException();
+        }
+
+        //3. 삭제
+        postRepository.delete(post);
+
     }
 }
