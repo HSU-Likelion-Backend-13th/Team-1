@@ -9,4 +9,6 @@ public interface PostService {
     PostDetailRes getById(Long postId);
     //게시글 전체 조회
     PostSummaryRes getAll();
+
+    PostDetailRes modfiyOne(Long postId, ModifyPostReq modifyPostReq);
 }

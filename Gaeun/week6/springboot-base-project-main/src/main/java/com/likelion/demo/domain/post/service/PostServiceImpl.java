@@ -2,6 +2,7 @@ package com.likelion.demo.domain.post.service;
 
 import com.likelion.demo.domain.post.entity.Post;
 import com.likelion.demo.domain.post.entity.PostState;
+import com.likelion.demo.domain.post.exception.InvalidPasswordException;
 import com.likelion.demo.domain.post.exception.PostNotFoundException;
 import com.likelion.demo.domain.post.repository.PostRepository;
 import com.likelion.demo.domain.post.web.dto.*;
@@ -77,5 +78,39 @@ public class PostServiceImpl implements PostService {
         }
         //3. 반환
         return new PostSummaryRes(postSummaryList);
+    }
+
+    //게시글 수정
+    //@Transactional
+    //JPA가 수정한 것을 자동으로 감지해서 DB에 업데이트
+    @Override
+    public PostDetailRes modfiyOne(Long postId, ModifyPostReq modifyPostReq) {
+        //1. DB에서 postId로 Post 찾기
+        //404 - 게시글 없음
+        Post foundpost = postRepository.findById(postId)
+                .orElseThrow(PostNotFoundException::new);
+
+        //2.비밀번호 검즘
+        //403 - 비밀번호 불일치
+        if(!foundpost.getPassword().equals(modifyPostReq.getPassword())) {
+            throw new InvalidPasswordException();
+        }
+
+        //3.post 수정
+        //해당 부분은 post라는 객체의 변동사항 로직들 모음
+        //그러니 post객체 내부의 변경사항 로직은 post 엔티티에 작성 추천
+        foundpost.modify(modifyPostReq.getTitle(), modifyPostReq.getContent());
+
+        //PostDetailRes 반환
+        return new PostDetailRes(
+                foundpost.getId(),
+                foundpost.getTitle(),
+                foundpost.getContent(),
+                foundpost.getUsername(),
+                foundpost.getPassword(),
+                foundpost.getState(),
+                foundpost.getCreatedAt(),
+                foundpost.getUpdatedAt()
+        );
     }
 }
