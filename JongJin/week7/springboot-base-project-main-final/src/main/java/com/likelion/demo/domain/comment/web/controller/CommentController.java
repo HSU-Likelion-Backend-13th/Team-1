@@ -17,7 +17,10 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<SuccessResponse<?>> createComment(@PathVariable Long postId, @RequestBody @Valid CreateCommentReq createCommentReq) {
+    public ResponseEntity<SuccessResponse<?>> createComment(
+            @PathVariable Long postId,
+            @RequestBody @Valid CreateCommentReq createCommentReq
+    ) {
         CreateCommentRes res = commentService.create(postId, createCommentReq);
 
         return ResponseEntity
@@ -53,5 +56,18 @@ public class CommentController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(SuccessResponse.ok(res));
+    }
+
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<SuccessResponse<?>> deleteComment(
+            @PathVariable Long postId,
+            @PathVariable Long commentId,
+            @RequestBody @Valid DeleteCommentReq deleteCommentReq
+    ) {
+        commentService.deleteOneComment(postId, commentId, deleteCommentReq);
+        // 반환
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(SuccessResponse.empty());
     }
 }

@@ -9,7 +9,6 @@ import com.likelion.demo.domain.post.entity.Post;
 import com.likelion.demo.domain.post.exception.PostNotFoundException;
 import com.likelion.demo.domain.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.Comments;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -100,5 +99,24 @@ public class CommentServiceImpl implements CommentService {
                 comment.getCreatedAt(),
                 comment.getUpdatedAt()
         );
+    }
+
+    @Override
+    public void deleteOneComment(Long postId, Long commentId, DeleteCommentReq deleteCommentReq) {
+        // 댓글 확인, 404 - 댓글 없음
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(CommentNotFoundException::new);
+
+        if (!comment.getPost().getId().equals(postId)) {
+            // 넣을 때, 확인하더라도, 결국 프론트에서 요청을 잘못보냈을 때를 확인하기 위함!!!
+            throw new PostNotFoundException();
+        }
+
+        // 비밀번호 검증, 403 - 비밀번호 불일치
+        if (!comment.getPassword().equals(deleteCommentReq.getPassword())) {
+            throw new CommentInvalidPassword();
+        }
+
+        commentRepository.delete(comment);
     }
 }

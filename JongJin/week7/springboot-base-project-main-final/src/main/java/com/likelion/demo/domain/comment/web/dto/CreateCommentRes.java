@@ -1,4 +1,4 @@
 package com.likelion.demo.domain.comment.web.dto;
 
-public record CreateCommentRes(Long postId) {
+public record CreateCommentRes(Long commentId) {
 }

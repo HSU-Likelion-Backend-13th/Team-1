@@ -11,4 +11,6 @@ public interface CommentService {
     CommentDetailRes getComment(Long postId, Long commentId);
 
     CommentDetailRes modifyComment(Long postId, Long commentId, ModifyCommentReq modifyCommentReq);
+
+    void deleteOneComment(Long postId, Long commentId, DeleteCommentReq deleteCommentReq);
 }
