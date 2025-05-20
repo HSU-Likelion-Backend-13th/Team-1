@@ -26,7 +26,7 @@ public class CommentServiceImpl implements CommentService {
 
         Comment comment = Comment.builder()
                 .post(post)
-                .content(createCommentReq.getComment())
+                .content(createCommentReq.getContent())
                 .username(createCommentReq.getUsername())
                 .password(createCommentReq.getPassword())
                 .build();
@@ -90,5 +90,24 @@ public class CommentServiceImpl implements CommentService {
                 comment.getCreatedAt(),
                 comment.getUpdatedAt()
         );
+    }
+
+    @Override
+    public void deleteComment(Long postId, Long commentId, DeleteCommentReq deleteCommentReq) {
+
+        // 댓글 찾기
+        Comment comment = commentRepository.findById(commentId).orElseThrow(CommentNotFoundException::new);
+
+        // 게시글에 댓글이 속해있는지 확인
+        if(!comment.getPost().getId().equals(postId)) {
+            throw new CommentNotFoundException();
+        }
+
+        // 비밀번호 일치 확인
+        if(!comment.getPassword().equals(deleteCommentReq.getPassword())) {
+            throw new CommentInvalidPassword();
+        }
+
+        commentRepository.delete(comment);
     }
 }

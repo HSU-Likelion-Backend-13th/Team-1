@@ -12,4 +12,7 @@ public interface CommentService {
 
     // 댓글수정
     CommentDetailRes modifyComment(Long postId, Long commentId, ModifyCommentReq modifyCommentReq);
+
+    // 댓글삭제
+    void deleteComment(Long postId, Long commentId, DeleteCommentReq deleteCommentReq);
 }
