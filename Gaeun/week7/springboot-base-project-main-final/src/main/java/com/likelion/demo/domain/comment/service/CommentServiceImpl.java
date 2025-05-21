@@ -105,4 +105,24 @@ public class CommentServiceImpl implements CommentService {
         );
     }
 
+    @Override
+    public void deleteOn(Long postId, Long commentId, DeleteCommentReq deletecommentReq) {
+        //1. 댓글 존재 확인
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(CommentNotFoundException::new);
+
+        //2. 게시글에 댓글 존재 확인
+        if(!comment.getPost().getId().equals(postId)){
+            throw new PostNotFoundException();
+        }
+
+        //3. 비밀번호 검증
+        if(!comment.getPassword().equals(deletecommentReq.getPassword())) {
+            throw new CommentInvalidException();
+        }
+
+        //4.삭제
+        commentRepository.delete(comment);
+    }
+
 }

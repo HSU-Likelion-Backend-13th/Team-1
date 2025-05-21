@@ -13,5 +13,7 @@ public interface CommentService {
 
     CommentDetailRes modifyComment(Long postId, Long commentId, ModifyCommentReq modifyCommentReq);
 
+    void deleteOn(Long postId, Long commentId, DeleteCommentReq deletecommentReq);
+
 
 }
